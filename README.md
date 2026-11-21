@@ -48,6 +48,61 @@ Claude applies the decision with a follow-up edit. If every comment is justified
 
 Comments that already existed are never flagged, so the plugin doesn't keep asking about the same ones. Tooling directives are ignored, including `eslint-disable`, `@ts-expect-error`, `noqa`, `type: ignore`, `//go:`, `#region`, license headers and shebangs.
 
+## Example
+
+This came from a real session with the plugin installed. Claude first wrote:
+
+```ts
+// calculate the total
+export function calc(items: { p: number; q: number }[]) {
+  let t = 0 // total
+  // loop over items
+  for (const i of items) {
+    t += i.p * i.q // multiply price by quantity
+  }
+  // Prices are stored in cents to avoid float rounding errors in sums.
+  return t
+}
+```
+
+Right after the write, Claude received this note (the user does not see it):
+
+```
+[self-documenting-code] This edit added 5 comment(s) to cart.ts (line numbers relative to the edited text):
+  - L1: calculate the total
+  - L3: total
+  - L4: loop over items
+  - L6: multiply price by quantity
+  - L8: Prices are stored in cents to avoid float rounding errors in sums.
+
+Before continuing, review each comment under the self-documenting code convention, without narrating the review:
+- KEEP it if it states a WHY, a warning, a public contract, a reference, or a ticketed TODO. Tighten its wording if needed.
+- REPLACE it if a clearer name, an extracted function or a named constant would carry the meaning. Make that change and delete the comment.
+- DELETE it if it restates what the code does or narrates the change.
+Apply the fixes with a follow-up edit. If every comment is worth keeping, do nothing.
+```
+
+Claude's follow-up edit:
+
+```ts
+type LineItem = { priceInCents: number; quantity: number }
+
+// Prices are kept in cents so sums don't pick up float rounding errors.
+export function cartTotalInCents(items: LineItem[]): number {
+  return items.reduce((total, item) => total + item.priceInCents * item.quantity, 0)
+}
+```
+
+| Comment | Decision |
+| --- | --- |
+| `calculate the total` | Replaced by the name `cartTotalInCents` |
+| `total` | Replaced by the name `total` in the reducer |
+| `loop over items` | Deleted; `reduce` says it |
+| `multiply price by quantity` | Replaced by `priceInCents` and `quantity` |
+| `Prices are stored in cents…` | Kept: it explains why |
+
+The follow-up edit triggered one more check, which flagged only the reworded cents comment. It explains a reason, so Claude left it, and the loop ended there.
+
 ## Supported files
 
 | Syntax | Extensions |
