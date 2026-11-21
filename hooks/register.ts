@@ -17,7 +17,9 @@ Remove or replace a comment when it:
 - stands in for a better name. Rename the variable or function, or extract a well-named function or constant;
 - narrates the change you are making, leaves commented-out code behind, or is a section divider that adds nothing.
 
-Write code that needs no comment first. Add a comment only when one of the reasons above applies.`
+Write code that needs no comment first. Add a comment only when one of the reasons above applies.
+
+When a comment's fate is unclear, decide yourself; never ask the user whether to keep a comment.`
 
 const MAX_LISTED = 25
 
@@ -31,7 +33,7 @@ function steer(path: string, comments: readonly FoundComment[]): string {
   return `[self-documenting-code] This edit added ${comments.length} comment(s) to ${path} (line numbers relative to the edited text):
 ${listed}${more}
 
-Before continuing, review each comment under the self-documenting code convention, without narrating the review:
+Before continuing, review each comment under the self-documenting code convention. Decide on your own: do not ask the user, do not pause for approval, and do not narrate the review.
 - KEEP it if it states a WHY, a warning, a public contract, a reference, or a ticketed TODO. Tighten its wording if needed.
 - REPLACE it if a clearer name, an extracted function or a named constant would carry the meaning. Make that change and delete the comment.
 - DELETE it if it restates what the code does or narrates the change.

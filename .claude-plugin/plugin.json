@@ -1,6 +1,6 @@
 {
   "name": "self-documenting-code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Enforces self-documenting code: after each edit, steers Claude to justify, rewrite or delete every comment it added.",
   "author": {
     "name": "ivansmb11",

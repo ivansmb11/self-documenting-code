@@ -44,7 +44,7 @@ Everything else goes: comments that say *what* the code does, comments that make
 - **Replace** it by renaming, extracting a function or naming a constant, then delete it, or
 - **Delete** it.
 
-Claude applies the decision with a follow-up edit. If every comment is justified, nothing happens.
+Claude makes each decision itself and applies it with a follow-up edit. It never asks you, so automated and auto-mode runs don't stop for approval. If every comment is justified, nothing happens.
 
 Comments that already existed are never flagged, so the plugin doesn't keep asking about the same ones. Tooling directives are ignored, including `eslint-disable`, `@ts-expect-error`, `noqa`, `type: ignore`, `//go:`, `#region`, license headers and shebangs.
 
@@ -75,7 +75,7 @@ Right after the write, Claude received this note (the user does not see it):
   - L6: multiply price by quantity
   - L8: Prices are stored in cents to avoid float rounding errors in sums.
 
-Before continuing, review each comment under the self-documenting code convention, without narrating the review:
+Before continuing, review each comment under the self-documenting code convention. Decide on your own: do not ask the user, do not pause for approval, and do not narrate the review.
 - KEEP it if it states a WHY, a warning, a public contract, a reference, or a ticketed TODO. Tighten its wording if needed.
 - REPLACE it if a clearer name, an extracted function or a named constant would carry the meaning. Make that change and delete the comment.
 - DELETE it if it restates what the code does or narrates the change.

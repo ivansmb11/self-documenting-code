@@ -60,3 +60,14 @@ test('Edit with no new comment adds no context', async ($, on) => {
 test('markdown files are left alone', async () => {
   expect(syntaxFor('README.md')).toBeUndefined()
 })
+
+test('steer tells Claude to decide without asking the user', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ({ result: { filePath: '/r/a.ts' } as never }))
+  const ran = await $.tool.call({
+    tool: 'Edit',
+    file_path: '/r/a.ts',
+    old_string: 'let n = 0',
+    new_string: '// set n to zero\nlet n = 0',
+  })
+  expect(ran.context?.join('\n')).toContain('do not ask the user')
+})
