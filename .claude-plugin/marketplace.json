@@ -1,0 +1,15 @@
+{
+  "name": "self-documenting-code",
+  "owner": {
+    "name": "ivansmb11"
+  },
+  "metadata": {
+    "description": "Claude Code plugin that enforces self-documenting code by reviewing every comment Claude adds."
+  },
+  "plugins": [
+    {
+      "name": "self-documenting-code",
+      "source": "./"
+    }
+  ]
+}

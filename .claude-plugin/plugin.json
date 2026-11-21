@@ -1,0 +1,18 @@
+{
+  "name": "self-documenting-code",
+  "version": "0.1.0",
+  "description": "Enforces self-documenting code: after each edit, steers Claude to justify, rewrite or delete every comment it added.",
+  "author": {
+    "name": "ivansmb11",
+    "url": "https://github.com/ivansmb11"
+  },
+  "homepage": "https://github.com/ivansmb11/self-documenting-code",
+  "repository": "https://github.com/ivansmb11/self-documenting-code",
+  "license": "MIT",
+  "keywords": [
+    "comments",
+    "code-quality",
+    "conventions",
+    "hooks"
+  ]
+}
